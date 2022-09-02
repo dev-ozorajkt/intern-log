@@ -56,6 +56,12 @@
     middleware: ['auth'],
   })
 
+  watchEffect(() => {
+    if (!user.value) {
+      navigateTo('/')
+    }
+  })
+
   const client = useSupabaseClient()
   const user = useSupabaseUser()  
        

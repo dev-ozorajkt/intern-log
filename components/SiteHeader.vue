@@ -29,6 +29,5 @@
     await client.auth.signOut()
     router.push('/')
   }
-  console.log(colorMode.preference)
 </script>
     
