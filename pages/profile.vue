@@ -55,15 +55,15 @@
   definePageMeta({
     middleware: ['auth'],
   })
-
+  const client = useSupabaseClient()
+  const user = useSupabaseUser()
+  const router = useRouter()
+  
   watchEffect(() => {
     if (!user.value) {
-      navigateTo('/')
+      router.push('/')
     }
   })
-
-  const client = useSupabaseClient()
-  const user = useSupabaseUser()  
        
   const username = ref('')
   const email = ref('')
