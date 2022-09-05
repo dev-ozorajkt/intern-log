@@ -1,4 +1,7 @@
 <template>
+  <Head>
+    <Title>Login</Title>
+  </Head>
   <!-- <div v-if="user">
       Welcome {{ user?.email }}
   </div>   -->

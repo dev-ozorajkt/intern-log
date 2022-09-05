@@ -1,15 +1,20 @@
 <template>
   <header class="flex items-center justify-between w-full py-8 text-black dark:text-slate-50">
     <NuxtLink to="/">Untitled Demo</NuxtLink>
+    <button
+      @click="toggleDark"
+    >
+      <span class="material-symbols-outlined">{{ colorModeIcon }}</span>
+    </button>    
     <div v-if="user">
       Hello {{ user?.email }}
     </div>
-    <!-- <h1>Color mode: {{ $colorMode.value }}</h1> -->
+    <!-- <h1>Color mode: {{ $colorMode.value }}</h1>
     <select v-model="colorMode.preference" class="p-2 bg-white dark:bg-gray-600 rounded">
       <option value="system">System</option>
       <option value="light">Light</option>
       <option value="dark">Dark</option>
-    </select>
+    </select> -->
     <button
       v-if="user"
       @click="logout"
@@ -25,9 +30,29 @@
   const client = useSupabaseClient()
   const user = useSupabaseUser()
   const colorMode = useColorMode()
+  const toggleDark = () => {
+    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+  }
+  const colorModeIcon = computed(() => colorMode.preference === 'dark' ? 'light_mode' : 'dark_mode')
   const logout = async () => {
     await client.auth.signOut()
     router.push('/')
   }
+
+    
+  useHead({
+    link: [
+      { 
+        rel: 'preconnect', 
+        href: 'https://fonts.googleapis.com'
+      },
+      { 
+        rel: 'stylesheet', 
+        href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,0,0', 
+        crossorigin: '' 
+      }
+    ]
+  })
+
 </script>
     
