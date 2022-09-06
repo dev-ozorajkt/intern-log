@@ -1,21 +1,22 @@
 <template>
+  <div>    
     <Head>
         <Title>Dashboard</Title>
     </Head>
     <Avatar />
+    <div></div>
+  </div>
 </template>
 
 <script setup lang="ts">
-    definePageMeta({
-        middleware: ['auth'],
-    })
-  const client = useSupabaseClient()
+  definePageMeta({
+    middleware: ['auth'],
+  })
   const user = useSupabaseUser()
-  const router = useRouter()
   
   watchEffect(() => {
     if (!user.value) {
-      router.push('/')
+      navigateTo('/')
     }
   })
 </script>

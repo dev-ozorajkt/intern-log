@@ -1,7 +1,8 @@
 import { serverSupabaseClient } from '#supabase/server'
+import { Profile } from '~/types/profile'
 
-export default eventHandler(async (event) => {  
+export default eventHandler(async (event) => {
     const client = serverSupabaseClient(event)    
-    const { data } = await client.from('profiles').select()  
-    return { profiles: data }
+    const { data } = await client.from<Profile>('profiles').select()
+    return data
 })

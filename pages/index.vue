@@ -1,5 +1,6 @@
 <template>
-  <Head>
+  <div>
+    <Head>
     <Title>Login</Title>
   </Head>
   <!-- <div v-if="user">
@@ -8,17 +9,17 @@
   <div>    
     <Login />
   </div>
+  </div>  
 </template>
 
 <script setup lang="ts">
 
   const client = useSupabaseClient()
   const user = useSupabaseUser()
-  const router = useRouter()
 
   watchEffect(() => {
     if (user.value) {
-      router.push('/profile')
+      navigateTo('/profile')
     }
   })
 </script>

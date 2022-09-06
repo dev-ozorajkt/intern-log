@@ -9,8 +9,8 @@
     <div v-if="user">
       Hello {{ user?.email }}
     </div>
-    <!-- <h1>Color mode: {{ $colorMode.value }}</h1>
-    <select v-model="colorMode.preference" class="p-2 bg-white dark:bg-gray-600 rounded">
+   <!-- <h1>Color mode: {{ $colorMode.value }}</h1>
+     <select v-model="colorMode.preference" class="p-2 bg-white dark:bg-gray-600 rounded">
       <option value="system">System</option>
       <option value="light">Light</option>
       <option value="dark">Dark</option>
@@ -25,7 +25,15 @@
   </header>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"> 
+
+  onMounted(() => {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      colorMode.value = 'dark'
+    } else {
+      colorMode.value = 'light'
+    }
+  })
   const router = useRouter()  
   const client = useSupabaseClient()
   const user = useSupabaseUser()
@@ -33,12 +41,11 @@
   const toggleDark = () => {
     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
   }
-  const colorModeIcon = computed(() => colorMode.preference === 'dark' ? 'light_mode' : 'dark_mode')
+  const colorModeIcon = computed(() => colorMode.preference === 'light' ? 'dark_mode' : 'light_mode')
   const logout = async () => {
     await client.auth.signOut()
     router.push('/')
   }
-
     
   useHead({
     link: [

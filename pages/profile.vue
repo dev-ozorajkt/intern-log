@@ -42,12 +42,6 @@
         Update
       </button>
     </form>
-    <button 
-        @click="reload" 
-        class="p-2 text-white bg-green-500 rounded"
-      >
-        Done
-      </button> 
   </div>
 </template>
 
@@ -94,10 +88,6 @@
       avatar_url: avatar_path.value,
       updated_at: new Date()
     })
-    window.location.reload()
-  }
-
-  const reload = () => {
     window.location.reload()
   }
   
