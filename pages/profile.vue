@@ -46,19 +46,15 @@
 </template>
 
 <script setup lang="ts">
+  import { Profile } from '~/types/profile'
+
   definePageMeta({
-    middleware: ['auth'],
+    middleware: ["auth"]
   })
   const client = useSupabaseClient()
   const user = useSupabaseUser()
   const router = useRouter()
-  
-  watchEffect(() => {
-    if (!user.value) {
-      router.push('/')
-    }
-  })
-       
+         
   const username = ref('')
   const email = ref('')
   const university = ref('')

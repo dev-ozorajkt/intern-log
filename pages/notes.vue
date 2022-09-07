@@ -9,7 +9,8 @@
     definePageMeta({
       middleware: ['auth'],
     })
-    const user = useUser()
+    const user = useSupabaseUser()
+    /*    
     onMounted(() => {
       watchEffect(() => {
         if (!user.value) {
@@ -17,4 +18,5 @@
         }
       })
     })
+    */
 </script>

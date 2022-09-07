@@ -7,7 +7,7 @@
       Welcome {{ user?.email }}
   </div>   -->
   <div>    
-    <Login />
+    <Login class="max-w-lg mx-auto" />
   </div>
   </div>  
 </template>

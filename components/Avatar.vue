@@ -1,31 +1,21 @@
 <template>
-    <div>
+    <div class="overflow-hidden rounded-full">
         <img 
-            v-if="!avatar_path"
+            v-if="!path"
             :src="avatar_default"
+            class="w-full"
             alt="Avatar"
         >
         <img 
             v-else
-            :src="avatar_path"
+            :src="path"
             alt="Avatar"
         >
-
     </div>
 </template>
 
 <script setup lang="ts">
-    const client = useSupabaseClient()
-    const user = useSupabaseUser()
-    
-    const avatar_path = ref('')
+    const props = defineProps(['path'])
+    const { path } = toRefs(props)    
     const avatar_default = ref('https://res.cloudinary.com/ozrcloud/image/upload/v1661933551/temporary/default.png')
-    const { data } = await client
-    .from('profiles')
-    .select('avatar_url')
-    .eq('id', user.value.id)
-    .single()
-    if (data) {
-        avatar_path.value = data.avatar_url    
-    }
 </script>
