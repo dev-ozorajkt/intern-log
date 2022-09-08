@@ -4,19 +4,20 @@
         @submit.prevent="() => (isSignUp ? signUp() : login())"
         class="flex flex-col gap-2"
       >
-        <input
-          type="email"
-          placeholder="Email"
-          v-model="email"
-          class="p-2 bg-gray-600 rounded"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          v-model="password"
-          class="p-2 bg-gray-600 rounded"
-        />
-        <button type="submit" class="p-2 text-white bg-green-500 rounded">
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Email</span>
+        </label>
+        <input type="email" placeholder="e.g user@example.com" v-model="email" class="input bg-neutral hover:border-primary focus:border-primary" />
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Password</span>
+        </label>
+        <input type="password" placeholder="**********" v-model="password" class="input bg-neutral hover:border-primary focus:border-primary" />
+      </div>
+        <button type="submit" class="p-2 text-white btn-primary rounded">
           <span v-if="isSignUp"> Sign up </span>
           <span v-else> Log in </span>
         </button>
