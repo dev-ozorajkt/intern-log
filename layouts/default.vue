@@ -1,7 +1,7 @@
 <template>
   <Html :data-theme="theme">    
-    <div class="min-h-screen">
-      <div class="max-w-screen-xl mx-auto">
+    <div class="min-h-screen bg-base-100">
+      <div class="w-full">
         <SiteHeader />
         <slot />
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <header class="flex items-center justify-between w-full p-4 text-black dark:text-slate-50">
+  <header class="flex items-center justify-between w-full p-4 text-black dark:text-slate-50 bg-base-100 backdrop-blur-xl">
     <NuxtLink to="/">Untitled Demo</NuxtLink>
     <ThemeToggler /> 
     <div v-if="user">
