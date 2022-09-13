@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-hidden rounded-full">
+    <div class="overflow-hidden rounded-full bg-neutral">
         <img 
             v-if="!path"
             :src="avatar_default"

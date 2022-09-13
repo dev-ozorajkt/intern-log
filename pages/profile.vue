@@ -5,7 +5,11 @@
     </Head>
     <p v-if="!username" class="mt-8 mb-16">Hello {{ user?.email }}</p>
     <p v-else class="mt-8 mb-16">Hello {{ username }}</p>
-    <Avatar />
+    <div class="avatar">
+      <div class="w-24 mask mask-hexagon">
+        <Avatar />
+      </div>
+    </div>
     <form
       @submit.prevent="updateProfile"
       class="flex flex-col gap-2"

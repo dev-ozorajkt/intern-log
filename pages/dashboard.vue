@@ -22,14 +22,14 @@
   //https://v3.nuxtjs.org/api/composables/use-async-data
   const { data: profile } = await useAsyncData(
   'profile',
-  async () => {
-    const { data } = await client
-    .from<Profile>('profiles')
-    .select('email, user_name, university, avatar_url, is_admin')
-    .eq('id', user.value.id)
-    .single()
-    
-    return data
+    async () => {
+      const { data } = await client
+      .from<Profile>('profiles')
+      .select('email, user_name, university, avatar_url, is_admin')
+      .eq('id', user.value.id)
+      .single()
+      
+      return data
   })
 
 
