@@ -16,6 +16,10 @@ export default defineNuxtConfig({
             wght: [100, 400],
             ital: [100]
           },
+          'Material+Symbols+Outlined': {
+            opsz: [48],
+            wght: [200]
+          },
         }
     }
 })

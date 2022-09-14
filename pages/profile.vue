@@ -7,7 +7,7 @@
     <p v-else class="mt-8 mb-16">Hello {{ username }}</p>
     <div class="avatar">
       <div class="w-24 mask mask-hexagon">
-        <Avatar />
+        <Avatar :path="avatar_path"/>
       </div>
     </div>
     <form

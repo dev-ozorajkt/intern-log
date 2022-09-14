@@ -1,4 +1,5 @@
 <template>
+  <div>    
     <Html :data-theme="theme">    
       <div class="min-h-screen bg-base-100 bg-index">
         <div class="w-full">
@@ -6,6 +7,7 @@
         </div>
       </div>
     </Html>
+  </div>
   </template>
   
   <script setup lang="ts">

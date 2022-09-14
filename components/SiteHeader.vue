@@ -1,8 +1,13 @@
 <template>
   <div>
-    <header class="flex items-center justify-between w-full px-4 py-2 bg-base-100 backdrop-blur-xl">
+    <header class="flex items-center justify-between w-full px-4 py-2 bg-base-100/50 backdrop-blur-xl border-b border-blue-100 dark:border-slate-800 sticky top-0">
       <!-- LEFT -->
       <div>
+        <button class="btn btn-square btn-ghost">
+          <span class="material-symbols-outlined">
+          menu
+          </span>
+        </button>
         <NuxtLink to="/dashboard">
           <span class="font-montserrat font-extrabold text-teal-500 text-3xl">&#123;daily-log&#125;</span>
         </NuxtLink>
@@ -11,10 +16,10 @@
       <!-- RIGHT -->
       <div class="flex items-center">
         <div class="dropdown dropdown-end">
-          <label class="profile-info hover:bg-neutral hover:cursor-pointer flex flex-nowrap items-center px-5 py-2 rounded-full" tabindex="0">                  
+          <label class="profile-info hover:bg-neutral hover:text-neutral-content hover:cursor-pointer flex flex-nowrap items-center px-5 py-2 rounded-full" tabindex="0">                  
             <div class="avatar order-last">
               <div class="w-10 mask mask-hexagon">
-                <Avatar />
+                <Avatar :path="profile.avatar_url" />
               </div>
             </div>          
             <div class="mr-2 text-right flex flex-col">
@@ -34,13 +39,12 @@
               </div>
             </div>
           </label>
-          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral text-neutral-content rounded-box w-52">
             <li><NuxtLink to="/profile">Profile</NuxtLink></li>
             <li>
               <button
                 v-if="user"
                 @click="logout"
-                class="px-4 py-2 rounded hover:bg-gray-800"
               >
                 Log out
               </button>
@@ -64,22 +68,14 @@
   const router = useRouter()  
   const client = useSupabaseClient()
   const user = useSupabaseUser()
- 
   const logout = async () => {
     await client.auth.signOut()
     router.push('/')
   }
-
-  const { data: profile } = await useAsyncData(
-  'profile',
-    async () => {
-      const { data } = await client
-      .from<Profile>('profiles')
-      .select('email, user_name, university, avatar_url, is_admin')
-      .eq('id', user.value.id)
-      .single()
-      
-      return data
-  })
+  const { data: profile } = await client
+    .from<Profile>('profiles')
+    .select('email, user_name, avatar_url')
+    .eq('id', user.value.id)
+    .single()
 </script>
     

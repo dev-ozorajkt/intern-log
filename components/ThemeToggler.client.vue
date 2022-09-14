@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown dropdown-end">
     <label tabindex="0" class="btn m-1 btn-ghost btn-sm rounded-full h-10 w-10"><span class="material-symbols-outlined">{{ colorModeIcon }}</span></label>
-    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral text-neutral-content rounded-box w-52">
       <li>
         <a :class="{ active: currOption === 'system' }" @click="pickTheme('system')">
         <span class="material-symbols-outlined">monitor</span>System

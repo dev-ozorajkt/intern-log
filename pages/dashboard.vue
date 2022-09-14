@@ -3,11 +3,13 @@
     <Head>
         <Title>Dashboard</Title>
     </Head>
-    <Avatar 
-      :path="profile.avatar_url"
-      class="w-16 h-16"
-    />
-    <div>{{profile.user_name}}</div>
+    <div v-if="!profile.university">
+      Hello {{user.email}}!
+      Let's complete your profile
+    </div>
+    <div v-else>
+      Hello {{profile.user_name}}!
+    </div>
   </div>
 </template>
 
@@ -19,25 +21,17 @@
   })
   const user = useSupabaseUser()
   const client = useSupabaseClient()
-  //https://v3.nuxtjs.org/api/composables/use-async-data
-  const { data: profile } = await useAsyncData(
-  'profile',
-    async () => {
-      const { data } = await client
-      .from<Profile>('profiles')
-      .select('email, user_name, university, avatar_url, is_admin')
-      .eq('id', user.value.id)
-      .single()
-      
-      return data
-  })
 
-
-  /*
+  const { data: profile } = await client
+    .from<Profile>('profiles')
+    .select('email, user_name, university')
+    .eq('id', user.value.id)
+    .single()
+   
   watchEffect(() => {
     if (!user.value) {
       return navigateTo('/')
     }
   })
-  */
+  
 </script>
