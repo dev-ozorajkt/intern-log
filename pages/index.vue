@@ -5,9 +5,6 @@
       <Head>
         <Title>Login</Title>
       </Head>
-      <!-- <div v-if="user">
-          Welcome {{ user?.email }}
-      </div>   -->
       <div class="max-w-md mx-auto p-5 bg-gray-200/20 dark:bg-gray-700/70 rounded backdrop-blur-sm drop-shadow-lg" >    
         <Login />
       </div>
@@ -25,7 +22,7 @@
   });
   watchEffect(() => {
     if (user.value) {
-      navigateTo('/profile')
+      navigateTo('/dashboard')
     }
   })
 </script>

@@ -1,12 +1,12 @@
 <template>
   <div>    
     <Html :data-theme="theme">    
-      <div class="min-h-screen bg-base-100">
+      <div class="min-h-screen bg-base-300">
         <div class="w-full">
           <SiteHeader class="sticky top-0"/>
-          <div class="px-4">
+          <div>
             <SideBar />
-            <div class="slot-container pl-72 py-5">              
+            <div class="slot-container pl-72 pr-4 py-5">              
               <slot />
             </div>
           </div>

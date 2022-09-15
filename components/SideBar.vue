@@ -1,17 +1,23 @@
 <template>
     <div>
-        <nav class="min-h-screen fixed w-72 border-r border-blue-100 dark:border-slate-800">
+        <nav class="min-h-screen fixed w-72 border-r border-blue-100 dark:border-slate-800 bg-base-100 px-2">
             <ul class="menu py-5">
                 <li>
-                    <a>                        
+                    <NuxtLink to="/dashboard">
                         <span class="material-symbols-outlined">widgets</span>
                         Dashboard
-                    </a>
+                    </NuxtLink>
                 </li>
                 <li>
                     <a>                        
                         <span class="material-symbols-outlined">list_alt</span>
-                        Projects
+                        Active Project
+                    </a>
+                </li>
+                <li>
+                    <a>                        
+                        <span class="material-symbols-outlined">beenhere</span>
+                        Archive
                     </a>
                 </li>
                 <li>
