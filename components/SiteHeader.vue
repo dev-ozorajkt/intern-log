@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="flex items-center justify-between w-full px-4 py-2 bg-base-100/50 backdrop-blur-xl border-b border-blue-100 dark:border-slate-800 sticky top-0">
+    <header class="flex items-center justify-between w-full px-4 py-2 bg-base-100/50 backdrop-blur-xl border-b border-blue-100 dark:border-slate-800 sticky top-0 z-50">
       <!-- LEFT -->
       <div>
         <button class="btn btn-square btn-ghost">
@@ -39,7 +39,7 @@
               </div>
             </div>
           </label>
-          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral text-neutral-content rounded-box w-52">
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral text-neutral-content rounded w-52">
             <li><NuxtLink to="/profile">Profile</NuxtLink></li>
             <li>
               <button

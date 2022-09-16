@@ -3,7 +3,7 @@
         <nav class="min-h-screen fixed w-72 border-r border-blue-100 dark:border-slate-800 bg-base-100 px-2">
             <ul class="menu py-5">
                 <li>
-                    <NuxtLink to="/dashboard">
+                    <NuxtLink active-class="bg-secondary text-secondary-content rounded-box" to="/dashboard">
                         <span class="material-symbols-outlined">widgets</span>
                         Dashboard
                     </NuxtLink>
@@ -21,7 +21,7 @@
                     </a>
                 </li>
                 <li>
-                    <NuxtLink to="/profile">
+                    <NuxtLink active-class="bg-secondary text-secondary-content rounded-box" to="/profile">
                         <span class="material-symbols-outlined">manage_accounts</span>
                         Profile
                     </NuxtLink>
