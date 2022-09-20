@@ -10,19 +10,7 @@
           <span>Before you continue, please complete your profile <NuxtLink to="/profile" class="link hover:bg-warning-content hover:text-blue-200">here</NuxtLink></span>
         </div>
       </div>
-      <div class="bg-gradient-to-tr from-secondary to-secondary-focus rounded mt-10">        
-        <div class="rounded flex glass">
-          <div class="w-56 flex flex-none ml-4 relative">
-            <figure class="absolute w-full -bottom-5"><img src="/img/dash-main.svg" alt="Dashboard" /></figure>
-          </div>         
-          <div class="text-secondary-content flex flex-wrap items-center w-full ml-8 py-10">
-            <div class="flex flex-col">              
-              <h2 class="text-3xl">Hello<span v-if="profile.user_name">, {{profile.user_name}}</span>!</h2>
-              <p class="flex-none">Currently you have no ongoing project.&#10024;</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <DashWelcome :username="username" :isAdmin="isAdmin"/>
     </div>
   </div>
 </template>
@@ -36,12 +24,24 @@
   const user = useSupabaseUser()
   const client = useSupabaseClient()
 
+  const username = ref('')
+  const email = ref('')
+  const university = ref('')
+  const avatar_path = ref('')
+  const isAdmin = ref(false)
+
   const { data: profile } = await client
     .from<Profile>('profiles')
-    .select('email, user_name, university')
+    .select('email, user_name, university, is_admin')
     .eq('id', user.value.id)
     .single()
-   
+  if (profile) {
+    email.value = profile.email
+    username.value = profile.user_name
+    university.value = profile.university
+    avatar_path.value = profile.avatar_url
+    isAdmin.value = profile.is_admin
+  } 
   watchEffect(() => {
     if (!user.value) {
       return navigateTo('/')

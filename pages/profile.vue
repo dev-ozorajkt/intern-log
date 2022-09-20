@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-  import { Profile } from '~/types/profile'
+import { Profile } from '~/types/profile'
 
   definePageMeta({
     middleware: ["auth"]
