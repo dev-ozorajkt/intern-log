@@ -1,29 +1,30 @@
 <template>
     <div>
-        <nav class="min-h-screen fixed w-72 border-r border-blue-100 dark:border-slate-800 bg-base-100 px-2">
-            <ul class="menu py-5">
-                <li>
+        <nav class="px-2 border-r border-blue-100 dark:border-slate-800 bg-base-100/50 min-h-screen fixed transition duration-300"
+            :class="{ 'w-72': isExpand }">
+            <ul class="menu py-5 w-full">
+                <li class="mb-1">
                     <NuxtLink active-class="bg-secondary text-secondary-content rounded-box" to="/dashboard">
                         <span class="material-symbols-outlined">widgets</span>
-                        Dashboard
+                        <span v-if="isExpand">Dashboard</span>                        
                     </NuxtLink>
                 </li>
-                <li>
+                <li class="mb-1">
                     <a>                        
                         <span class="material-symbols-outlined">list_alt</span>
-                        Active Project
+                        <span v-if="isExpand">Active Project</span>
                     </a>
                 </li>
-                <li>
+                <li class="mb-1">
                     <a>                        
                         <span class="material-symbols-outlined">beenhere</span>
-                        Archive
+                        <span v-if="isExpand">Archive</span>
                     </a>
                 </li>
-                <li>
+                <li class="mb-1">
                     <NuxtLink active-class="bg-secondary text-secondary-content rounded-box" to="/profile">
                         <span class="material-symbols-outlined">manage_accounts</span>
-                        Profile
+                        <span v-if="isExpand">Profile</span>
                     </NuxtLink>
                 </li>
             </ul>
@@ -31,6 +32,6 @@
     </div>
 </template>
 
-<script lang="ts">
-
+<script setup lang="ts">
+    const isExpand = useExpand()
 </script>

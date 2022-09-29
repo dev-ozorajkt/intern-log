@@ -1,2 +1,3 @@
 export const useUser = () => useState('user', () => null)
-export const useDrawer = () => useState<boolean>('drawer', () => false)
+export const useExpand = () => useState<boolean>('expand', () => true)
+export const useAdmin = () => useState<boolean>('admin', () => false)

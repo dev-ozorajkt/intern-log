@@ -3,125 +3,71 @@
     <Head>
       <Title>Profile</Title>
     </Head>
-    <p v-if="!username" class="mt-8 mb-16">Hello {{ user?.email }}</p>
-    <p v-else class="mt-8 mb-16">Hello {{ username }}</p>
-    <div class="avatar">
-      <div class="w-24 mask mask-hexagon">
-        <Avatar :path="avatar_path"/>
+    <div class="wrapper px-4">
+      <div class="page-title pb-6">        
+        <h2 class="text-teal-500 font-montserrat font-extrabold text-3xl">Profile</h2>
       </div>
-    </div>
-    <form
-      @submit.prevent="updateProfile"
-      class="flex flex-col gap-2"
-    >
-      <input
-        type="email"
-        placeholder="Email"
-        :value="email"
-        class="p-2 bg-gray-600 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Name"
-        v-model="username"
-        class="p-2 bg-gray-600 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Avatar URL"
-        v-model="avatar_path"
-        class="p-2 bg-gray-600 rounded"
-      />
-      <input
-        v-if="!isAdmin"
-        type="text"
-        placeholder="University"
-        v-model="university"
-        class="p-2 bg-gray-600 rounded"
-      />
-      <button 
-        type="submit" 
-        class="p-2 text-white bg-green-500 rounded"
-      >
-        Update
-      </button>
-    </form>
+      <div class="flex rounded-sm p-10 bg-gradient-to-r from-neutral to-neutral-focus text-neutral-content justify-center max-w-screen-lg mx-auto">
+        <div class="column-left flex w-1/3 justify-center items-start">
+          <label for="modal-change-avatar" class="modal-button">                         
+            <div class="avatar cursor-pointer relative">
+              <div class="w-48 mask mask-squircle bg-base-300 p-1">
+                <ProfileAvatar :path="avatar_path" class="mask mask-squircle"/>
+              </div>
+              <div class="edit-avatar">
+                <span class="material-symbols-outlined">edit</span>
+                <span class="text">Change Picture</span>
+              </div>
+          </div> 
+          </label>
+        </div>
+        <div class="column-right w-2/3 text-neutral-content">          
+          <ProfileForm />
+        </div>
+      </div>
+      <!-- Modal -->
+      <input type="checkbox" id="modal-change-avatar" class="modal-toggle" />
+      <div class="modal">
+        <ProfilePickAvatar class="modal-box max-w-md glass flex flex-col justify-center items-center p-8"/>
+      </div>
+    </div>    
   </div>
 </template>
 
 <script setup lang="ts">
-import { Profile } from '~/types/profile'
+  import { Profile } from '~/types/profile'
+  const avatar_path = ref('')
+  const client = useSupabaseClient()
 
+  const { data: profile } = await client
+    .from<Profile>('profiles')
+    .select('avatar_url')
+    .single()
+  if(profile) {
+    avatar_path.value = profile.avatar_url
+  }
   definePageMeta({
     middleware: ["auth"]
   })
-  const client = useSupabaseClient()
-  const user = useSupabaseUser()
-  const router = useRouter()
-         
-  const username = ref('')
-  const email = ref('')
-  const university = ref('')
-  const avatar_path = ref('')
-  const isAdmin = ref(false)
-
-    
-  const { data } = await client
-  .from('profiles')
-  .select('email, user_name, university, avatar_url, is_admin')
-  .eq('id', user.value.id)
-  .single()    
-
-  if (data) {
-    email.value = data.email
-    username.value = data.user_name
-    university.value = data.university
-    avatar_path.value = data.avatar_url
-    isAdmin.value = data.is_admin
-  }   
   
-  const updateProfile = async () => {
-    const { data, error } = await client.from('profiles').upsert({
-      id: user.value.id,
-      user_name: username.value,
-      university: university.value,
-      avatar_url: avatar_path.value,
-      updated_at: new Date()
-    })
-    window.location.reload()
-  }
-  
-    /*
-
-    let { data } = await client
-      .from('profiles')
-      .select(`user_name, university, avatar_url`)
-      .eq('id', user.value.id)
-      .single()
-      if (data) {
-        username.value = data.user_name
-        university.value = data.university
-        avatar_path.value = data.avatar_url
-      } 
-    
-    async function updateProfile() {
-      try {
-          const user = useUser();
-          const updates = {
-              id: user.value.id,
-              user_name: username.value,
-              university: university.value,
-              avatar_url: avatar_path.value,
-              updated_at: new Date(),
-          }
-          let { error } = await client.from('profiles').upsert(updates, {
-              returning: 'minimal', // Don't return the value after inserting
-          })
-          if (error) throw error
-      } catch (error) {
-          alert(error.message)
-      }
-  }
-
-  */
 </script>
+
+<style scoped>
+  .edit-avatar {
+    @apply absolute bg-primary rounded-full text-secondary-content p-2 flex flex-col;
+    bottom: 0;
+    right: 0;
+  }
+  .edit-avatar .text {
+    display: none;
+  }
+  .avatar:hover .edit-avatar {
+    @apply rounded-none w-full mask mask-squircle items-center justify-center bg-opacity-90;
+  }
+  .avatar:hover .edit-avatar .text {
+    display: inline;
+  }
+  .avatar:hover .edit-avatar .material-symbols-outlined {
+    font-size: 48px;
+  }
+</style>
