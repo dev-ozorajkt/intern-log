@@ -28,7 +28,11 @@
 
 <script setup lang="ts">
     const currOption = ref('')
-    currOption.value = 'system'
+    if(!('theme' in localStorage)) {      
+      currOption.value = 'system'
+    } else {
+      currOption.value = localStorage.theme
+    }
     onMounted(() => {
       if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         colorMode.value = 'dark'

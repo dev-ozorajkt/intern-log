@@ -70,7 +70,6 @@
     import { Profile } from '~/types/profile'
     const client = useSupabaseClient()
     const user = useSupabaseUser()
-
     const isEditMode = ref(false)            
     const username = ref('')
     const email = ref('')

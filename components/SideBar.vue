@@ -10,10 +10,10 @@
                     </NuxtLink>
                 </li>
                 <li class="mb-1">
-                    <a>                        
+                    <NuxtLink active-class="bg-secondary text-secondary-content rounded-box" to="/project">                        
                         <span class="material-symbols-outlined">list_alt</span>
                         <span v-if="isExpand">Active Project</span>
-                    </a>
+                    </NuxtLink>
                 </li>
                 <li class="mb-1">
                     <a>                        

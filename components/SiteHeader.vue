@@ -19,7 +19,7 @@
           <label class="profile-info hover:bg-neutral hover:text-neutral-content hover:cursor-pointer flex flex-nowrap items-center px-5 py-2 rounded-full" tabindex="0">                  
             <div class="avatar order-last">
               <div class="w-10 mask mask-hexagon">
-                <ProfileAvatar :path="avatar_path" />
+                <ProfileAvatar :path="avatar_path" class="h-full"/>
               </div>
             </div>          
             <div class="mr-2 text-right flex flex-col">

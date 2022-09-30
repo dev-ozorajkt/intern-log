@@ -9,26 +9,25 @@
       </div>
       <div class="flex rounded-sm p-10 bg-gradient-to-r from-neutral to-neutral-focus text-neutral-content justify-center max-w-screen-lg mx-auto">
         <div class="column-left flex w-1/3 justify-center items-start">
-          <label for="modal-change-avatar" class="modal-button">                         
+          <div class="modal-button" @click="isAvatarModalOpen = !isAvatarModalOpen">                         
             <div class="avatar cursor-pointer relative">
               <div class="w-48 mask mask-squircle bg-base-300 p-1">
-                <ProfileAvatar :path="avatar_path" class="mask mask-squircle"/>
+                <ProfileAvatar :path="avatar_path" class="mask mask-squircle h-full"/>
               </div>
               <div class="edit-avatar">
                 <span class="material-symbols-outlined">edit</span>
                 <span class="text">Change Picture</span>
               </div>
           </div> 
-          </label>
+        </div>
         </div>
         <div class="column-right w-2/3 text-neutral-content">          
           <ProfileForm />
         </div>
       </div>
       <!-- Modal -->
-      <input type="checkbox" id="modal-change-avatar" class="modal-toggle" />
-      <div class="modal">
-        <ProfilePickAvatar class="modal-box max-w-md glass flex flex-col justify-center items-center p-8"/>
+      <div v-if="isAvatarModalOpen" class="modal-container fixed top-0 left-0 z-50 w-full h-full bg-base-300/50 flex justify-center items-center overflow-hidden">
+        <ProfilePickAvatar class="modal-box max-w-md glass flex flex-col justify-center items-center p-8" @modal-state-change="isAvatarModalOpen = !isAvatarModalOpen"/>
       </div>
     </div>    
   </div>
@@ -38,6 +37,7 @@
   import { Profile } from '~/types/profile'
   const avatar_path = ref('')
   const client = useSupabaseClient()
+  const isAvatarModalOpen = useAvatarModal()
 
   const { data: profile } = await client
     .from<Profile>('profiles')

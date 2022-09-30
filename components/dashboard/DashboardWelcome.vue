@@ -7,7 +7,7 @@
                         <h2 class="text-3xl">Hello<span v-if="username">, {{ username }}</span>!</h2>
                         <div class="flex-none" v-if="isAdmin">
                             <p>Currently there are no ongoing projects for intern.</p>
-                            <NuxtLink class="btn btn-secondary normal-case rounded-full mt-6" to="/dashboard">
+                            <NuxtLink class="btn btn-secondary normal-case rounded-full mt-6" to="/project">
                                 <svg width="20" height="20" fill="currentColor" class="mr-2" aria-hidden="true">
                                     <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
                                 </svg>
@@ -16,7 +16,7 @@
                         </div>
                         <div class="flex-none" v-else>
                             <p>Currently you have no ongoing project.&#10024;</p>
-                            <NuxtLink class="btn btn-secondary normal-case rounded-full mt-6" to="/dashboard">
+                            <NuxtLink class="btn btn-secondary normal-case rounded-full mt-6" to="/project">
                                 See Project Directory               
                             </NuxtLink>
                         </div>

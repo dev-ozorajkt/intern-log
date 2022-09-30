@@ -10,7 +10,7 @@
           <span>Before you continue, please complete your profile <NuxtLink to="/profile" class="link hover:bg-warning-content hover:text-blue-200">here</NuxtLink></span>
         </div>
       </div>
-      <DashWelcome :username="username" :isAdmin="isAdmin"/>
+      <DashboardWelcome :username="username" :isAdmin="isAdmin"/>
     </div>
   </div>
 </template>
