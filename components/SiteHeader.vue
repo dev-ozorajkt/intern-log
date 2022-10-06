@@ -86,7 +86,7 @@
   const { data: profile } = await client
     .from<Profile>('profiles')
     .select('email, user_name, avatar_url, university, is_admin')
-    //.eq('id', user.value.id)
+    .eq('id', user.value.id)
     .single() 
   if (profile) {
     email.value = profile.email

@@ -58,6 +58,7 @@
     const { data: profile } = await client
     .from<Profile>('profiles')
     .select('avatar_url')
+    .eq('id', user.value.id)
     .single() 
     if (profile) {
         avatarPath.value = profile.avatar_url

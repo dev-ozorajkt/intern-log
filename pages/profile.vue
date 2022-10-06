@@ -37,11 +37,13 @@
   import { Profile } from '~/types/profile'
   const avatar_path = ref('')
   const client = useSupabaseClient()
+  const user = useSupabaseUser()
   const isAvatarModalOpen = useAvatarModal()
 
   const { data: profile } = await client
     .from<Profile>('profiles')
     .select('avatar_url')
+    .eq('id', user.value.id)
     .single()
   if(profile) {
     avatar_path.value = profile.avatar_url
