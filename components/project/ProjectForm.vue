@@ -1,7 +1,7 @@
 <template>
     <div>
-        <form action=""
-            @submit.prevent
+        <form 
+            @submit.prevent="createProject"
             class="flex flex-col gap-2"
         >                    
             <label for="title">Project Name</label>
@@ -14,9 +14,7 @@
                 />
             <label for="summary">Project Summary</label>     
             <Tiptap id="summary" v-model="summary"/>
-            <div class="summary">
-                <pre><code>{{ summary }}</code></pre>
-            </div>
+            <!-- <div>{{ summary }}</div> -->
             <label for="imgUrl">Featured Image</label>
             <input
                 type="text"
@@ -48,16 +46,46 @@
                     />
                 </div>
             </div>
+            <button type="submit" class="btn btn-secondary w-full rounded mt-5" :class="{'loading': isLoading}">Create Project</button>
         </form>
     </div>
 </template>
 <script setup lang="ts">
-    import { Project } from '~/types/project'
+import { Project } from '~/types/project'
     const title = ref('')
     const summary = ref('')
     const imgUrl = ref('')
     const dateStart = ref('')
     const dateEnd = ref('')
+    const isLoading = ref(false)
+    const nextRoute = ref('')
 
-    summary.value = 'tes'
+    const client = useSupabaseClient()
+    const user = useSupabaseUser()
+    const router = useRouter();
+
+    const createProject = async () => {
+        try {
+            isLoading.value = true
+            const { data, error } = await client.from<Project>('projects').insert({
+                title: title.value,
+                summary: summary.value,
+                featured_image: imgUrl.value,
+                date_start: dateStart.value,
+                date_end: dateEnd.value,
+                is_complete: false,
+                owner: user.value.id
+            })
+            .single()
+            if (error) throw error
+            nextRoute.value = data.id
+        } catch (error) {
+            alert(error.message)
+        } finally {
+            isLoading.value = false            
+            return navigateTo({ 
+                path: `/project/${nextRoute.value}`
+            })
+        }
+    }
 </script>

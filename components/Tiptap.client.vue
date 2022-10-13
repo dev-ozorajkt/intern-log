@@ -1,35 +1,29 @@
 <template>
     <div>
-        <div class="editor-wrapper border border-blue-100 dark:border-slate-800">
-            <div v-if="editor" class="editor-buttons bg-neutral text-neutral-content">
-                <!-- Bold -->
-                <div class="tooltip" data-tip="Bold">
-                    <button @click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
-                        <i class="ri-bold"></i> 
-                    </button>
-                </div>
+        <div class="editor-wrapper border border-blue-100 dark:border-slate-800 rounded">
+            <div v-if="editor" class="editor-buttons bg-neutral text-neutral-content flex items-center py-1">
+                <!-- Bold -->                
+                <button type="button" title="Bold" @click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
+                    <i class="ri-bold"></i> 
+                </button>
 
-                <!-- Italic -->
-                <div class="tooltip" data-tip="Italic">                
-                    <button @click="editor.chain().focus().toggleItalic().run()" :disabled="!editor.can().chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
-                        <i class="ri-italic"></i> 
-                    </button>
-                </div>
+                <!-- Italic -->                               
+                <button type="button" title="Italic" @click="editor.chain().focus().toggleItalic().run()" :disabled="!editor.can().chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
+                    <i class="ri-italic"></i> 
+                </button>
 
                 <!-- Strikethrough -->
-                <div class="tooltip" data-tip="Strikethrough">                
-                    <button @click="editor.chain().focus().toggleStrike().run()" :disabled="!editor.can().chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
-                        <i class="ri-strikethrough"></i> 
-                    </button> 
-                </div>
+                <button type="button" title="Strikehtrough" @click="editor.chain().focus().toggleStrike().run()" :disabled="!editor.can().chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
+                    <i class="ri-strikethrough"></i> 
+                </button>                 
 
                 <!-- Clear Format -->
-                <div class="tooltip" data-tip="Clear Format">                
-                    <button @click="editor.chain().focus().unsetAllMarks().run()">
-                        <i class="ri-format-clear"></i> 
-                    </button>
-                </div>
+                <button type="button" title="Clear Format" @click="editor.chain().focus().unsetAllMarks().run()">
+                    <i class="ri-format-clear"></i> 
+                </button>
 
+                <div class="w-[1px] h-6 bg-neutral-content"></div>
+                
                 <!-- Paragraph -->
                 <div class="tooltip" data-tip="Paragraph">                
                     <button @click="editor.chain().focus().setParagraph().run()" :class="{ 'is-active': editor.isActive('paragraph') }">
@@ -111,7 +105,7 @@
                 </button>
             </div>
             <editor-content :editor="editor" />
-        </div>        
+        </div>
     </div>
 </template>
 <script setup lang="ts">
@@ -125,7 +119,16 @@
         modelValue: string,
     }>()
     const { modelValue } = toRefs(props)
-    const emit = defineEmits(['update:modelValue'])     
+    const emit = defineEmits(['update:modelValue'])  
+
+
+   // watch(modelValue, (value) => {
+   //     const isSame = editor.value.getHTML() === value
+   //     if (isSame) {
+   //         return editor.value.commands.focus()
+   //     }
+   //     editor.value.commands.setContent(value, false)    
+   //})
     
     const editor = useEditor({
         content: modelValue.value,
@@ -141,15 +144,15 @@
             class: 'prose prose-sm sm:prose lg:prose-lg m-5 focus:outline-none',
             },
         },
-        onUpdate: ({editor}) => {
-            console.log(editor.getHTML())
-            emit('update:modelValue', editor.getHTML())
-            editor.commands.focus()
-            
+        onBlur: () => {
+            //emit('update:modelValue', editor.getHTML())
+            testEmit()
         }
-    })
+    })    
     
-
+    const testEmit = () => {        
+        emit('update:modelValue', editor.value.getHTML())
+    }    
 
     const setLink = () => {
       const previousUrl = editor.value.getAttributes('link').href
@@ -178,14 +181,17 @@
         .focus()
         .extendMarkRange('link')
         .setLink({ href: url })
-        .run()
-        
+        .run()        
     }
 
 </script>
 
 <style scoped>
     .editor-buttons button {
-        @apply p-2 hover:bg-neutral-focus
+        @apply p-2 hover:bg-neutral-focus w-8 h-8 flex items-center
+    }
+
+    button.is-active {
+        @apply bg-neutral-focus
     }
 </style>
