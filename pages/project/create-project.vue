@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="wrapper px-4">
+        <div class="wrapper px-4 max-w-screen-lg mx-auto">
             <div class="page-title pb-6 flex justify-between">        
                 <h2 class="text-teal-500 font-montserrat font-extrabold text-3xl">Create Project</h2>
                 <NuxtLink class="btn btn-secondary normal-case rounded-full gap-2 flex items-center justify-center" to="/project/">

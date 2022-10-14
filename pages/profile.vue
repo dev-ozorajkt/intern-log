@@ -3,7 +3,7 @@
     <Head>
       <Title>Profile</Title>
     </Head>
-    <div class="wrapper px-4">
+    <div class="wrapper px-4 max-w-screen-lg mx-auto">
       <div class="page-title pb-6">        
         <h2 class="text-teal-500 font-montserrat font-extrabold text-3xl">Profile</h2>
       </div>

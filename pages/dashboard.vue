@@ -12,6 +12,7 @@
           </div>
         </div>
         <DashboardWelcome :username="username" :isAdmin="isAdmin"/>
+        
       </div>
       <div class="right-column w-[24%] p-4 bg-base-100 rounded">        
         <Calendar />
@@ -28,7 +29,7 @@ import { Profile } from '~/types/profile'
   })
   const user = useSupabaseUser()
   const client = useSupabaseClient()
-
+  
   const username = ref('')
   const email = ref('')
   const university = ref('')

@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="editor-wrapper border border-blue-100 dark:border-slate-800 rounded">
-            <div v-if="editor" class="editor-buttons bg-neutral text-neutral-content flex items-center py-1">
+            <div v-if="editor" class="editor-buttons bg-slate-300 dark:bg-slate-800 flex items-center py-1 flex-wrap">
                 <!-- Bold -->                
-                <button type="button" title="Bold" @click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
+                <button type="button" title="Bold" @click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus('end').toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
                     <i class="ri-bold"></i> 
                 </button>
 
@@ -24,84 +24,98 @@
 
                 <div class="w-[1px] h-6 bg-neutral-content"></div>
                 
-                <!-- Paragraph -->
-                <div class="tooltip" data-tip="Paragraph">                
-                    <button @click="editor.chain().focus().setParagraph().run()" :class="{ 'is-active': editor.isActive('paragraph') }">
-                        <i class="ri-paragraph"></i> 
-                    </button>
-                </div>
-
-                <!-- H1 -->
-                <div class="tooltip" data-tip="H1">                
-                    <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
-                        <i class="ri-h-1"></i> 
-                    </button>
-                </div>
-
-                <!-- H2 -->
-                <div class="tooltip" data-tip="H2">                
-                    <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
-                        <i class="ri-h-2"></i> 
-                    </button>
-                </div>
-
-                <!-- H3 -->
-                <div class="tooltip" data-tip="H3">                
-                    <button @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }">
-                        <i class="ri-h-3"></i> 
-                    </button>
-                </div>
-
-                <!-- Bullet List -->
-                <div class="tooltip" data-tip="Bullet List">                
-                    <button @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor.isActive('bulletList') }">
-                        <i class="ri-list-unordered"></i> 
-                    </button>
-                </div>
-
-                <!-- Ordered List -->
-                <div class="tooltip" data-tip="Ordered List">                
-                    <button @click="editor.chain().focus().toggleOrderedList().run()" :class="{ 'is-active': editor.isActive('orderedList') }">
-                        <i class="ri-list-ordered"></i> 
-                    </button>
-                </div>
-
-                
-                <button @click="editor.chain().focus().toggleCodeBlock().run()" :class="{ 'is-active': editor.isActive('codeBlock') }">
-                    <i class="ri-code-view"></i> 
+                <!-- Paragraph -->                
+                <button type="button" title="Paragraph" @click="editor.chain().focus().setParagraph().run()" :class="{ 'is-active': editor.isActive('paragraph') }">
+                    <i class="ri-paragraph"></i> 
                 </button>
-                <button @click="editor.chain().focus().toggleBlockquote().run()" :class="{ 'is-active': editor.isActive('blockquote') }">
+
+                <!-- H1 -->                
+                <button type="button" title="Heading 1" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
+                    <i class="ri-h-1"></i> 
+                </button>
+
+                <!-- H2 -->                
+                <button type="button" title="Heading 2" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
+                    <i class="ri-h-2"></i> 
+                </button>
+
+                <!-- H3 -->                
+                <button type="button" title="Heading 3" @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }">
+                    <i class="ri-h-3"></i> 
+                </button>
+
+                <!-- Bullet List -->                
+                <button type="button" title="Unordered List" @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor.isActive('bulletList') }">
+                    <i class="ri-list-unordered"></i> 
+                </button>
+
+                <!-- Ordered List -->                                
+                <button type="button" title="Ordered List" @click="editor.chain().focus().toggleOrderedList().run()" :class="{ 'is-active': editor.isActive('orderedList') }">
+                    <i class="ri-list-ordered"></i> 
+                </button>
+                
+                <!-- Code Block -->
+                <button type="button" title="Code Block" @click="editor.chain().focus().toggleCodeBlock().run()" :class="{ 'is-active': editor.isActive('codeBlock') }">
+                    <i class="ri-terminal-box-fill"></i> 
+                </button>
+
+                <!-- Blockquote -->
+                <button type="button" title="Blockquote" @click="editor.chain().focus().toggleBlockquote().run()" :class="{ 'is-active': editor.isActive('blockquote') }">
                     <i class="ri-double-quotes-l"></i> 
                 </button>
-                <button @click="editor.chain().focus().setTextAlign('left').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }">
+
+                <!-- Align Left -->
+                <button type="button" title="Align Left" @click="editor.chain().focus().setTextAlign('left').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }">
                     <i class="ri-align-left"></i> 
                 </button>
-                <button @click="editor.chain().focus().setTextAlign('center').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }">
+
+                <!-- Align Center -->
+                <button type="button" title="Align Center" @click="editor.chain().focus().setTextAlign('center').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }">
                     <i class="ri-align-center"></i> 
                 </button>
-                <button @click="editor.chain().focus().setTextAlign('right').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }">
+
+                <!-- Align Right -->
+                <button type="button" title="Align Right" @click="editor.chain().focus().setTextAlign('right').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }">
                     <i class="ri-align-right"></i> 
                 </button>
-                <button @click="editor.chain().focus().setTextAlign('justify').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }">
+
+                <!-- Align Justify -->
+                <button type="button" title="Align Justify" @click="editor.chain().focus().setTextAlign('justify').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }">
                     <i class="ri-align-justify"></i> 
                 </button>
-                <button @click="editor.chain().focus().setHorizontalRule().run()">
-                    hr
+                
+                <div class="w-[1px] h-6 bg-neutral-content"></div>
+
+                <!-- Horizontal Rule -->
+                <button type="button" title="Horizontal Rule" @click="editor.chain().focus().setHorizontalRule().run()">
+                    <i class="ri-separator"></i>
                 </button>
-                <button @click="editor.chain().focus().setHardBreak().run()">
-                    br
+
+                <!-- Line Break -->
+                <button type="button" title="Line Break" @click="editor.chain().focus().setHardBreak().run()">
+                    <i class="ri-text-wrap"></i>
                 </button>
-                <button @click="editor.chain().focus().undo().run()" :disabled="!editor.can().chain().focus().undo().run()">
-                    <i class="ri-arrow-go-back-line"></i> 
-                </button>
-                <button @click="editor.chain().focus().redo().run()" :disabled="!editor.can().chain().focus().redo().run()">
-                    <i class="ri-arrow-go-forward-line"></i> 
-                </button>
-                <button @click="setLink" :class="{ 'is-active': editor.isActive('link') }">
+
+                <!-- Set Link -->
+                <button type="button" title="Set Link" @click="setLink" :class="{ 'is-active': editor.isActive('link') }">
                     <i class="ri-link"></i> 
                 </button>
-                <button @click="editor.chain().focus().unsetLink().run()" :disabled="!editor.isActive('link')">
+
+                <!-- Unset Link -->
+                <button type="button" title="Unset Link" @click="editor.chain().focus().unsetLink().run()" :disabled="!editor.isActive('link')">
                     <i class="ri-link-unlink"></i> 
+                </button>
+                
+                <div class="w-[1px] h-6 bg-neutral-content"></div>
+
+                <!-- Undo -->
+                <button type="button" title="Undo" @click="editor.chain().undo().focus().run()" :disabled="!editor.can().undo()">
+                    <i class="ri-arrow-go-back-line"></i> 
+                </button>
+
+                <!-- Redo -->
+                <button type="button" title="Redo" @click="editor.chain().focus().redo().run()" :disabled="!editor.can().chain().focus().redo().run()">
+                    <i class="ri-arrow-go-forward-line"></i> 
                 </button>
             </div>
             <editor-content :editor="editor" />
@@ -188,10 +202,10 @@
 
 <style scoped>
     .editor-buttons button {
-        @apply p-2 hover:bg-neutral-focus w-8 h-8 flex items-center
+        @apply p-1 hover:bg-neutral-focus w-7 h-7 flex items-center justify-center rounded mx-1
     }
 
     button.is-active {
-        @apply bg-neutral-focus
+        @apply bg-neutral-focus text-neutral-content
     }
 </style>

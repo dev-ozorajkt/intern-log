@@ -3,6 +3,7 @@ export interface Project {
     title: string
     summary?: string
     featured_image?: string
+    participants: string[]
     date_start: string
     date_end: string
     is_complete: boolean    
