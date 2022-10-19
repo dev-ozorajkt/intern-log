@@ -25,37 +25,125 @@
                                 <li><a>Edit</a></li>
                                 <li><a>Set to completed</a></li>
                                 <li><a class="bg-error text-error-content">
-                                    <i class="ri-delete-bin-line"></i>  Delete
+                                    <i class="ri-delete-bin-line"></i>Delete
                                 </a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="project-content p-6">
-                    
-                    <div class="project-participant my-2">
-                        <span class="text-sm text-primary font-bold">Participant</span>
-                        <div class="avatar-group -space-x-4 mt-2">
-                            <div class="avatar">
-                                <div class="w-8">
-                                    <img src="https://i.pravatar.cc/150?img=10" />
-                                </div>
+                <div class="project-content p-6 flex justify-between">
+                    <div class="project-content-log w-[73%]">
+                        <div class="tabs border-b border-primary">
+                            <a class="tab tab-active">Today's Log</a> 
+                            <a class="tab">Past Log</a> 
+                        </div>
+                        <div class="today">
+                            <div class="project-note">
+                                <h3 class="font-extrabold text-xl text-primary mt-5">Project's Note</h3>
+                                <p class="bg-base-300 border-l-2 border-primary p-3 my-2">There is no note yet...</p>                               
                             </div>
-                            <div class="avatar">
-                                <div class="w-8">
-                                    <img src="https://i.pravatar.cc/150?img=22" />
+                            <table class="table table-fixed w-full mt-10">
+                                <!-- head -->
+                                <thead>
+                                <tr>
+                                    <th class="w-[25%]">Name</th>
+                                    <th class="w-[40%]">Activity</th>
+                                    <th class="w-[20%]">Progress</th>
+                                    <th class="w-[10%]"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- row 1 -->
+                                <tr>
+                                    <td>
+                                    <div class="flex items-center space-x-3">
+                                        <div class="avatar">
+                                        <div class="mask mask-circle w-12 h-12">
+                                            <img src="https://i.pravatar.cc/150?img=20" alt="Avatar Tailwind CSS Component" />
+                                        </div>
+                                        </div>
+                                        <div>
+                                        <div class="font-bold">Hart Hagerty Hart Hagerty</div>
+                                        </div>
+                                    </div>
+                                    </td>
+                                    <td>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                    </td>
+                                    <td><progress class="progress progress-primary w-full" value="10" max="100"></progress></td>
+                                    <th>
+                                    <button class="btn btn-ghost btn-xs">
+                                        <span>Details</span>
+                                    </button>
+                                    </th>
+                                </tr>
+                                <tr class="details">
+                                    <td colspan="4" class="bg-base-300 p-10">
+                                    <div class="bg-base-100 border-l-2 border-secondary p-4">
+                                        <span class="detail-label text-teal-500 font-bold italic">Goals</span>
+                                        <p class="mt-2 mb-4">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <span class="detail-label text-error-content font-bold italic">Issues</span>
+                                        <p class="mt-2 mb-4">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <span class="detail-label text-primary font-bold italic">Planned solutions</span>
+                                        <p class="mt-2">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                    </div>
+                                    </td>
+                                </tr>
+                                <!-- row 2 -->
+                                <tr>
+                                    <td>
+                                    <div class="flex items-center space-x-3">
+                                        <div class="avatar">
+                                        <div class="mask mask-circle w-12 h-12">
+                                            <img src="https://i.pravatar.cc/150?img=50" alt="Avatar Tailwind CSS Component" />
+                                        </div>
+                                        </div>
+                                        <div>
+                                        <div class="font-bold">Brice Swyre</div>
+                                        <div class="text-sm opacity-50">China</div>
+                                        </div>
+                                    </div>
+                                    </td>
+                                    <td>
+                                    Carroll Group
+                                    <br>
+                                    <span class="badge badge-ghost badge-sm">Tax Accountant</span>
+                                    </td>
+                                    <td>Red</td>
+                                    <th>
+                                    <button class="btn btn-ghost btn-xs">details</button>
+                                    </th>
+                                </tr>
+                                </tbody>   
+                            </table>
+                        </div>
+                        
+                    </div>
+                    <div class="project-content-info w-[25%]">
+                        <div class="about mb-5">
+                            <span class="section-label">About Project</span>
+                            <p class="p-3">This is where you put a little more detail about the project like goals, etc</p>
+                        </div>
+                        <div class="owner mb-5">
+                            <span class="section-label">Owner</span>
+                            <div class="flex items-center mt-2 p-3">                        
+                                <div class="avatar mr-2">
+                                    <div class="w-8 rounded-full">
+                                        <img src="https://i.pravatar.cc/150?img=3" />
+                                    </div>
                                 </div>
+                                <span>Project Owner</span>
                             </div>
-                            <div class="avatar">
-                                <div class="w-8">
-                                    <img src="https://i.pravatar.cc/150?img=39" />
-                                </div>
-                            </div>
-                             <div class="avatar">
-                                <div class="w-8">
-                                    <img src="https://i.pravatar.cc/150?img=4" />
-                                </div>
-                            </div>
+                        </div>
+                        <div class="resources">
+                            <span class="section-label">Additional Resources</span>
+                            <form class="p-3 w-full flex">
+                                <input type="text" placeholder="Add Link" class="input bg-slate-300 dark:bg-slate-800 rounded rounded-tr-none rounded-br-none w-full" />
+                                <button class="btn rounded-none w-12"><i class="ri-add-line"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -82,5 +170,23 @@ import { Project } from '~/types/project'
     .project-header::after {
         @apply w-full h-full bg-base-200/90 absolute block left-0;
         content: '';
+    }
+    .project-content-log .tab {
+        @apply h-auto px-4 py-2 rounded-tl rounded-tr
+    }
+    .project-content-log .tab-active {
+        @apply bg-primary text-primary-content font-bold
+    }
+    .today table :where(thead, tfoot) :where(th, td) {
+        @apply bg-secondary text-secondary-content
+    }
+    .today table :where(th, td) {
+        @apply whitespace-normal
+    }
+    .section-label {
+        @apply block
+    }
+    .section-label {
+        @apply bg-base-300 dark:bg-slate-800 text-primary font-bold block border-b border-primary px-3 py-2.5 rounded-tl rounded-tr
     }
 </style>
