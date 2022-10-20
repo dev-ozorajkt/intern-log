@@ -17,7 +17,9 @@
 </template>
 
 <script setup lang="ts">
+import { Profile } from '~/types/profile'
   const colorMode = useColorMode()
+  /*
   onMounted(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
        colorMode.value = 'dark'
@@ -25,15 +27,40 @@
        colorMode.value = 'light'
     }
   })
-
+  */
   const theme = computed(() => colorMode.value === 'light' ? 'winter' : 'night')
   const isExpand = useExpand()
   const sideExpand = computed(() => isExpand.value === true ? 'pl-72'  : 'pl-20')
+  const { userData, setUserData } = useUserData()
+  const user = useSupabaseUser()
+  const client = useSupabaseClient()
   
+  const username = ref('')
+  const email = ref('')
+  const university = ref('')
+  const avatarPath = ref('')
+  const isAdmin = ref(false)
 
-  const myState = useState('me', () => ({
-    email: 'test@email',
-    isAdmin: true,
-    username: 'test',
-  }));
+  const { data: profile } = await client
+    .from<Profile>('profiles')
+    .select('email, user_name, university, is_admin, avatar_url')
+    .eq('id', user.value.id)
+    .single()
+  if (profile) {
+    email.value = profile.email
+    username.value = profile.user_name
+    university.value = profile.university
+    avatarPath.value = profile.avatar_url
+    isAdmin.value = profile.is_admin    
+  }
+  
+  const response = {
+    id: user.value.id,
+    name: username.value,
+    avatarPath: avatarPath.value,
+    university: university.value,
+    isAdmin: isAdmin.value,
+    email: email.value
+  }
+  setUserData (response)
 </script>

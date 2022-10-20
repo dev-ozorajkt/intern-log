@@ -19,24 +19,24 @@
           <label class="profile-info hover:bg-neutral hover:text-neutral-content hover:cursor-pointer flex flex-nowrap items-center px-5 py-2 rounded-full" tabindex="0">                  
             <div class="avatar order-last">
               <div class="w-10 mask mask-hexagon">
-                <ProfileAvatar :path="avatar_path" class="h-full"/>
+                <ProfileAvatar :path="userData.avatarPath" class="h-full"/>
               </div>
             </div>          
             <div class="mr-2 text-right flex flex-col">
               <div class="text-base">                
-                <span v-if="!username">
+                <span v-if="!userData.name">
                   {{ user?.email }}
                 </span>
                 <span v-else>
-                  {{ username }}
+                  {{ userData.name }}
                 </span>
               </div>
-              <div v-if="isAdmin == true" class="text-xs">
+              <div v-if="userData.isAdmin == true" class="text-xs">
                 Admin
               </div>
               <div v-else class="text-xs">
-                <span v-if="university">
-                  {{ university }}
+                <span v-if="userData.university">
+                  {{ userData.university }}
                 </span>
                 Intern
               </div>
@@ -72,17 +72,20 @@
   const client = useSupabaseClient()
   const user = useSupabaseUser()
   const isExpand = useExpand()
-
+  const { userData } = useUserData()
+  /*
   const username = ref('')
   const email = ref('')
   const university = ref('')
   const avatar_path = ref('')
   const isAdmin = ref(false)
-
+  */
   const logout = async () => {
     await client.auth.signOut()
     router.push('/')
   }
+
+  /*
   const { data: profile } = await client
     .from<Profile>('profiles')
     .select('email, user_name, avatar_url, university, is_admin')
@@ -95,7 +98,7 @@
     avatar_path.value = profile.avatar_url
     isAdmin.value = profile.is_admin
   }
-    
+  */
   const toggleExpand = () => {
     isExpand.value = !isExpand.value    
     //console.log(useExpand().value)

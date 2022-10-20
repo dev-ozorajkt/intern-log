@@ -31,24 +31,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-content p-6 flex justify-between">
-                    <div class="project-content-log w-[73%]">
-                        <div class="tabs border-b border-primary">
+                <div class="project-content p-6 lg:flex justify-between">
+                    <div class="project-content-log lg:w-[76%]">
+                        <div class="tabs border-b border-blue-100 dark:border-slate-800">
                             <a class="tab tab-active">Today's Log</a> 
                             <a class="tab">Past Log</a> 
                         </div>
                         <div class="today">
                             <div class="project-note">
                                 <h3 class="font-extrabold text-xl text-primary mt-5">Project's Note</h3>
-                                <p class="bg-base-300 border-l-2 border-primary p-3 my-2">There is no note yet...</p>                               
+                                <p class="bg-base-300 border-l-2 border-primary p-3 my-2">There is no note yet...</p>
+                                <Tiptap v-if="userData.isAdmin" v-model="note" />                             
                             </div>
                             <table class="table table-fixed w-full mt-10">
                                 <!-- head -->
                                 <thead>
                                 <tr>
                                     <th class="w-[25%]">Name</th>
-                                    <th class="w-[40%]">Activity</th>
-                                    <th class="w-[20%]">Progress</th>
+                                    <th class="w-[40%]">Current Activity</th>
+                                    <th class="w-[20%]">Overall Progress</th>
                                     <th class="w-[10%]"></th>
                                 </tr>
                                 </thead>
@@ -79,15 +80,15 @@
                                 </tr>
                                 <tr class="details">
                                     <td colspan="4" class="bg-base-300 p-10">
-                                    <div class="bg-base-100 border-l-2 border-secondary p-4">
-                                        <span class="detail-label text-teal-500 font-bold italic">Goals</span>
-                                        <p class="mt-2 mb-4">
+                                    <div class="bg-base-100 rounded p-4">
+                                        <span class="detail-label text-teal-500 font-bold">Goals</span>
+                                        <p class="mt-2 mb-4 border-l-2 border-teal-500 ml-2 pl-2">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                        <span class="detail-label text-error-content font-bold italic">Issues</span>
-                                        <p class="mt-2 mb-4">
+                                        <span class="detail-label text-red-700 font-bold">Issues</span>
+                                        <p class="mt-2 mb-4 border-l-2 border-red-700 ml-2 pl-2">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                        <span class="detail-label text-primary font-bold italic">Planned solutions</span>
-                                        <p class="mt-2">
+                                        <span class="detail-label text-primary font-bold">Solutions</span>
+                                        <p class="mt-2 border-l-2 border-primary ml-2 pl-2">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
                                     </div>
                                     </td>
@@ -122,29 +123,8 @@
                         </div>
                         
                     </div>
-                    <div class="project-content-info w-[25%]">
-                        <div class="about mb-5">
-                            <span class="section-label">About Project</span>
-                            <p class="p-3">This is where you put a little more detail about the project like goals, etc</p>
-                        </div>
-                        <div class="owner mb-5">
-                            <span class="section-label">Owner</span>
-                            <div class="flex items-center mt-2 p-3">                        
-                                <div class="avatar mr-2">
-                                    <div class="w-8 rounded-full">
-                                        <img src="https://i.pravatar.cc/150?img=3" />
-                                    </div>
-                                </div>
-                                <span>Project Owner</span>
-                            </div>
-                        </div>
-                        <div class="resources">
-                            <span class="section-label">Additional Resources</span>
-                            <form class="p-3 w-full flex">
-                                <input type="text" placeholder="Add Link" class="input bg-slate-300 dark:bg-slate-800 rounded rounded-tr-none rounded-br-none w-full" />
-                                <button class="btn rounded-none w-12"><i class="ri-add-line"></i></button>
-                            </form>
-                        </div>
+                    <div class="project-content-info rounded p-6 lg:w-[22%] border border-blue-100 dark:border-slate-800">
+                        <ProjectDetailSidebar />
                     </div>
                 </div>
             </div>
@@ -152,10 +132,12 @@
     </div>
 </template>
 <script setup lang="ts">
-import dayjs from 'dayjs'
-import { Project } from '~/types/project'
+    import dayjs from 'dayjs'
+    import { Project } from '~/types/project'
+    const { userData } = useUserData()
     const route = useRoute()
     const client = useSupabaseClient()
+    const note = ref('')
 
      const { data: project } = await client
     .from<Project>('projects')
@@ -187,6 +169,6 @@ import { Project } from '~/types/project'
         @apply block
     }
     .section-label {
-        @apply bg-base-300 dark:bg-slate-800 text-primary font-bold block border-b border-primary px-3 py-2.5 rounded-tl rounded-tr
+        @apply text-primary font-bold block border-b border-blue-100 dark:border-slate-800 py-2.5
     }
 </style>
