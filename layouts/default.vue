@@ -36,6 +36,7 @@ import { Profile } from '~/types/profile'
   const client = useSupabaseClient()
   
   const username = ref('')
+  const alias = ref('')
   const email = ref('')
   const university = ref('')
   const avatarPath = ref('')
@@ -43,7 +44,7 @@ import { Profile } from '~/types/profile'
 
   const { data: profile } = await client
     .from<Profile>('profiles')
-    .select('email, user_name, university, is_admin, avatar_url')
+    .select('email, user_name, university, is_admin, avatar_url, alias')
     .eq('id', user.value.id)
     .single()
   if (profile) {
@@ -51,11 +52,13 @@ import { Profile } from '~/types/profile'
     username.value = profile.user_name
     university.value = profile.university
     avatarPath.value = profile.avatar_url
-    isAdmin.value = profile.is_admin    
+    isAdmin.value = profile.is_admin  
+    alias.value = profile.alias  
   }
   
   const response = {
     id: user.value.id,
+    alias: alias.value,
     name: username.value,
     avatarPath: avatarPath.value,
     university: university.value,

@@ -4,27 +4,27 @@
         @submit.prevent="updateProfile"
         class="flex flex-col gap-2"
         >        
-        <label for="name">Name</label>
+        <label for="name" class="text-primary">Name</label>
         <input
           type="text"
           placeholder="Name"
           v-model="username"
-          class="p-2 bg-gray-600 rounded"
+          class="p-2 bg-base-200 dark:bg-neutral"
         />
-        <label for="email">Email</label>
+        <label for="email" class="text-primary">Email</label>
         <input
           type="email"
           placeholder="Email"
           :value="email"
-          class="p-2 bg-gray-600 rounded"
+          class="p-2 bg-base-200 dark:bg-neutral"
         />
-        <label for="university" v-if="!isAdmin">University</label>
+        <label for="university" v-if="!isAdmin" class="text-primary">University</label>
         <input
           v-if="!isAdmin"
           type="text"
           placeholder="University"
           v-model="university"
-          class="p-2 bg-gray-600 rounded"
+          class="p-2 bg-base-200 dark:bg-neutral"
         />
         <div class="button-group my-4">
           <button 
@@ -58,6 +58,7 @@
           </tbody>
         </table>
         <button 
+        v-if="isProfileOwner"
         @click="isEditMode = !isEditMode"
         class="btn btn-outline btn-primary rounded-full px-6 normal-case">
           Edit Profile
@@ -75,11 +76,17 @@
     const email = ref('')
     const university = ref('')
     const isAdmin = ref(false)
+    const props = defineProps({
+        isProfileOwner: Boolean, 
+        alias: String
+    })
+  const { isProfileOwner } = toRefs(props)
+  const { alias } = toRefs(props)
         
     const { data: profile } = await client
     .from<Profile>('profiles')
-    .select('email, user_name, university, is_admin')
-    .eq('id', user.value.id)
+    .select('email, user_name, university, is_admin, alias')
+    .eq('alias', alias.value)
     .single()    
 
     if (profile) {

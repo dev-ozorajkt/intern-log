@@ -1,5 +1,6 @@
 export interface Me {    
-    id: string   
+    id: string
+    alias: string
     name?: string
     avatarPath?: string
     university?: string

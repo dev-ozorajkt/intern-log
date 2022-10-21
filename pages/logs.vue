@@ -1,7 +1,7 @@
 <template>
     <div>
         <Head>
-            <Title>Project</Title>
+            <Title>Logs</Title>
         </Head>
         <NuxtPage />
     </div>

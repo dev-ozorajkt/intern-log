@@ -1,5 +1,6 @@
 export interface Profile {    
-    id: string    
+    id: string
+    alias: string
     updated_at?: string    
     user_name?: string
     avatar_url?: string

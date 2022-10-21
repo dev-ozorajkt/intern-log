@@ -32,31 +32,23 @@
                     </div>
                 </div>
                 <div class="project-content p-6 lg:flex justify-between">
-                    <div class="project-content-log lg:w-[76%]">
+                    <div class="project-content-log lg:w-[79%]">
                         <div class="tabs border-b border-blue-100 dark:border-slate-800">
-                            <a class="tab tab-active">Today's Log</a> 
-                            <a class="tab">Past Log</a> 
+                            <a class="tab" :class="{ 'tab-active': isToday }" @click="isToday = true">Today's Log</a> 
+                            <a class="tab" :class="{ 'tab-active': !isToday }" @click="isToday = false">Past Log</a> 
                         </div>
-                        <div class="today">
+                        <div v-if="isToday" class="today">
                             <div class="project-note">
                                 <h3 class="font-extrabold text-xl text-primary mt-5">Project's Note</h3>
                                 <p class="bg-base-300 border-l-2 border-primary p-3 my-2">There is no note yet...</p>
                                 <Tiptap v-if="userData.isAdmin" v-model="note" />                             
                             </div>
-                            <table class="table table-fixed w-full mt-10">
-                                <!-- head -->
-                                <thead>
-                                <tr>
-                                    <th class="w-[25%]">Name</th>
-                                    <th class="w-[40%]">Current Activity</th>
-                                    <th class="w-[20%]">Overall Progress</th>
-                                    <th class="w-[10%]"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <!-- row 1 -->
-                                <tr>
-                                    <td>
+                            <LogToday />
+                        </div>
+                        <div v-if="!isToday" class="past">
+                            <div class="collapse rounded shadow-md my-5">
+                                <input type="checkbox" class="peer" /> 
+                                <div class="collapse-title">
                                     <div class="flex items-center space-x-3">
                                         <div class="avatar">
                                         <div class="mask mask-circle w-12 h-12">
@@ -64,66 +56,18 @@
                                         </div>
                                         </div>
                                         <div>
-                                        <div class="font-bold">Hart Hagerty Hart Hagerty</div>
+                                        <div class="font-bold">Cassandra Allegra Portia Calogera Filomena Pentaghast</div>
                                         </div>
                                     </div>
-                                    </td>
-                                    <td>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                    </td>
-                                    <td><progress class="progress progress-primary w-full" value="10" max="100"></progress></td>
-                                    <th>
-                                    <button class="btn btn-ghost btn-xs">
-                                        <span>Details</span>
-                                    </button>
-                                    </th>
-                                </tr>
-                                <tr class="details">
-                                    <td colspan="4" class="bg-base-300 p-10">
-                                    <div class="bg-base-100 rounded p-4">
-                                        <span class="detail-label text-teal-500 font-bold">Goals</span>
-                                        <p class="mt-2 mb-4 border-l-2 border-teal-500 ml-2 pl-2">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                        <span class="detail-label text-red-700 font-bold">Issues</span>
-                                        <p class="mt-2 mb-4 border-l-2 border-red-700 ml-2 pl-2">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                        <span class="detail-label text-primary font-bold">Solutions</span>
-                                        <p class="mt-2 border-l-2 border-primary ml-2 pl-2">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                    </div>
-                                    </td>
-                                </tr>
-                                <!-- row 2 -->
-                                <tr>
-                                    <td>
-                                    <div class="flex items-center space-x-3">
-                                        <div class="avatar">
-                                        <div class="mask mask-circle w-12 h-12">
-                                            <img src="https://i.pravatar.cc/150?img=50" alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                        </div>
-                                        <div>
-                                        <div class="font-bold">Brice Swyre</div>
-                                        <div class="text-sm opacity-50">China</div>
-                                        </div>
-                                    </div>
-                                    </td>
-                                    <td>
-                                    Carroll Group
-                                    <br>
-                                    <span class="badge badge-ghost badge-sm">Tax Accountant</span>
-                                    </td>
-                                    <td>Red</td>
-                                    <th>
-                                    <button class="btn btn-ghost btn-xs">details</button>
-                                    </th>
-                                </tr>
-                                </tbody>   
-                            </table>
-                        </div>
-                        
+                                </div>
+                                <div class="collapse-content bg-base-300"> 
+                                    <LogAll />
+                                </div>
+                            </div>
+                            
+                        </div>                        
                     </div>
-                    <div class="project-content-info rounded p-6 lg:w-[22%] border border-blue-100 dark:border-slate-800">
+                    <div class="project-content-info rounded p-6 lg:w-[19%] border border-blue-100 dark:border-slate-800">
                         <ProjectDetailSidebar />
                     </div>
                 </div>
@@ -138,6 +82,7 @@
     const route = useRoute()
     const client = useSupabaseClient()
     const note = ref('')
+    const isToday = ref(true)
 
      const { data: project } = await client
     .from<Project>('projects')
@@ -158,12 +103,6 @@
     }
     .project-content-log .tab-active {
         @apply bg-primary text-primary-content font-bold
-    }
-    .today table :where(thead, tfoot) :where(th, td) {
-        @apply bg-secondary text-secondary-content
-    }
-    .today table :where(th, td) {
-        @apply whitespace-normal
     }
     .section-label {
         @apply block

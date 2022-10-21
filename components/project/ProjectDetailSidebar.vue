@@ -21,7 +21,7 @@
                 <li><a><i class="ri-external-link-line"></i> Link One</a></li>
                 <li><a>Link Two</a></li>
             </ul>
-            <button v-if="userData.isAdmin" class="btn btn-outline w-full mt-2 rounded border-dashed"><i class="ri-add-line"></i>Add Link</button>
+            <button v-if="userData.isAdmin" class="btn btn-outline w-full mt-2 rounded border-dashed normal-case"><i class="ri-add-line mt-1 mr-2"></i>Add Link</button>
             <!-- <form class="p-3 w-full flex">
                 <input type="text" placeholder="Add Link" class="input bg-slate-300 dark:bg-slate-800 rounded rounded-tr-none rounded-br-none w-full" />
                 <button class="btn rounded-none w-12"><i class="ri-add-line"></i></button>
@@ -41,5 +41,8 @@
     }
     .resources a {
         @apply border-b border-blue-100 dark:border-slate-800 w-full block p-3 cursor-pointer hover:bg-neutral hover:text-neutral-content
+    }
+    .resources button {
+        @apply flex
     }
 </style>
