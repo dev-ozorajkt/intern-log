@@ -1,5 +1,5 @@
 export interface Project {    
-    id: string        
+    id: number        
     title: string
     summary?: string
     featured_image?: string
@@ -9,4 +9,5 @@ export interface Project {
     is_complete: boolean    
     owner: string
     created_at?: string
+    note?: string
 }
