@@ -42,6 +42,7 @@
                                 <h3 class="font-extrabold text-xl text-primary mt-5">Project's Note</h3>
                                 <div class="note-content relative" v-if="!noteIsEditMode">
                                     <p class="bg-base-300 border-l-2 border-primary p-3 my-2">Add project's note...</p>
+                                    
                                     <button v-if="userData.isAdmin" class="absolute btn btn-sm  p-2 right-2 top-2" @click="noteIsEditMode = true">                                        
                                         <i class="ri-edit-line"></i>
                                     </button> 
