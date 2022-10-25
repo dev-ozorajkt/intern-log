@@ -39,7 +39,7 @@
                 <tr class="details">
                     <td colspan="4" class="bg-base-200 p-10">
                         <div class="bg-base-100 rounded p-4">
-                            <span class="detail-label text-teal-500 font-bold">Goals</span>
+                            <span class="detail-label text-teal-500 font-bold">Finished</span>
                             <p class="mt-2 mb-4 border-l-2 border-teal-500 ml-2 pl-2">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                                 incididunt ut labore et dolore magna aliqua. </p>

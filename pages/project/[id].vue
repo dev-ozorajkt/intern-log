@@ -40,25 +40,23 @@
                         <div v-if="isToday" class="today">
                             <div class="project-note">
                                 <h3 class="font-extrabold text-xl text-primary mt-5">Project's Note</h3>
-                                <div class="note-content relative" v-if="!noteIsEditMode">
-                                    <p class="bg-base-300 border-l-2 border-primary p-3 my-2">Add project's note...</p>
+                                <div class="note-content relative">                                    
+                                    <form @submit.prevent="addNote" class="mt-4">
+                                        <Tiptap v-model:modelValue="note" :tiptapIsEditable="noteIsEditMode"/>
+                                        <div v-if="noteIsEditMode" class="button-group flex justify-end mt-2">
+                                            <button type="button" class="btn btn-ghost text-red-500 rounded-full px-6 mr-2" @click="noteIsEditMode = false">
+                                                Cancel
+                                            </button>
+                                            <button type="submit" class="btn btn-primary rounded-full px-6" :class="{ 'loading': isLoading }">
+                                                Add
+                                            </button>
+                                        </div>
+                                    </form> 
                                     
-                                    <button v-if="userData.isAdmin" class="absolute btn btn-sm  p-2 right-2 top-2" @click="noteIsEditMode = true">                                        
+                                    <button v-if="userData.isAdmin" type="button" class="absolute btn btn-sm  p-2 right-2 top-2" @click="noteIsEditMode = true" :class="{ 'hidden':noteIsEditMode }">                                        
                                         <i class="ri-edit-line"></i>
                                     </button> 
-                                </div>
-                                <form @submit.prevent="addNote" v-if="noteIsEditMode" class="mt-4">
-                                    <Tiptap v-model="note" />
-                                    <div class="button-group flex justify-end mt-2">
-                                        <button type="button" class="btn btn-ghost text-red-500 rounded-full px-6 mr-2" @click="noteIsEditMode = false">
-                                            Cancel
-                                        </button>
-                                        <button type="submit" class="btn btn-primary rounded-full px-6">
-                                            Add
-                                        </button>
-                                    </div>
-
-                                </form>                          
+                                </div>                         
                             </div>
                             <LogToday />
                         </div>
@@ -101,22 +99,38 @@
     const note = ref('')
     const isToday = ref(true)
     const noteIsEditMode = ref(false)
+    const isLoading = ref(false)
 
      const { data: project } = await client
     .from<Project>('projects')
     .select('*')
-    .filter('id', 'eq', route.params.id)
+    .filter('shortkey', 'eq', route.params.id)
     .single() 
 
     const dateStart = dayjs(project.date_start).format('MMM D, YYYY')
     const dateEnd = dayjs(project.date_end).format('MMM D, YYYY')
+   
+    if(project.note) {
+        note.value = project.note
+    } else {
+        note.value = '<p>Add note...<p>'
+    }
 
     
     const addNote = async () => {
-        const { data, error } = await client.from<Project>('projects').upsert({
-            id: project.id,
-            note: note.value
-        })
+        try {
+            isLoading.value = true
+            const { data, error } = await client.from<Project>('projects').upsert({
+                id: project.id,
+                note: note.value
+            })
+            if (error) throw error
+        }catch (error) {
+            alert(error.message)
+        } finally {
+            isLoading.value = false
+            noteIsEditMode.value = false
+        }        
     }
 </script>
 <style scoped>

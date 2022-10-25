@@ -9,10 +9,10 @@
                         <span v-if="isExpand">Dashboard</span>                        
                     </NuxtLink>
                 </li>
-                <li v-if="!userData.isAdmin" class="mb-1">
-                    <NuxtLink active-class="bg-secondary text-secondary-content rounded-box" to="/logs" title="Manage Log">                        
+                <li class="mb-1">
+                    <NuxtLink active-class="bg-secondary text-secondary-content rounded-box" to="/logs" title="Logs">                        
                         <i class="ri-file-edit-line"></i> 
-                        <span v-if="isExpand">Manage Log</span>
+                        <span v-if="isExpand">Logs</span>
                     </NuxtLink>
                 </li>
                 <li class="mb-1">

@@ -1,5 +1,6 @@
 export interface Project {    
-    id: number        
+    id: number
+    shortkey: string       
     title: string
     summary?: string
     featured_image?: string

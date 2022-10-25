@@ -81,7 +81,7 @@ import { Profile } from '~/types/profile'
 
     const { data: profiles } = await client
     .from<Profile>('profiles')
-    .select('id, user_name, is_admin')
+    .select('id, user_name, is_admin, shortkey')
     .eq('is_admin', false)
 
     const createProject = async () => {
@@ -99,7 +99,7 @@ import { Profile } from '~/types/profile'
             })
             .single()
             if (error) throw error
-            nextRoute.value = data.id
+            nextRoute.value = data.shortkey
         } catch (error) {
             alert(error.message)
         } finally {
