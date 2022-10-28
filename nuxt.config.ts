@@ -10,7 +10,7 @@ export default defineNuxtConfig({
         families: {
           Roboto: true,
           Poppins: true,
-          Montserrat: true,
+          Montserrat: [400, 600, 700],
           Lato: [100, 300],
           Raleway: {
             wght: [100, 400],
